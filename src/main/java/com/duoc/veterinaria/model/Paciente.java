@@ -50,7 +50,7 @@ public class Paciente {
     }
 
     public void setEdad(int edad) {
-        if (edad<0) throw new IllegalArgumentException("La edad no puede ser negativa")
+        if (edad<0) throw new IllegalArgumentException("La edad no puede ser negativa");
         this.edad = edad;
     }
 
