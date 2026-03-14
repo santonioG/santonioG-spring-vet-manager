@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Pacientes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pacientes Registrados</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Dueño</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="p : ${lista}">
+            <td th:text="${p.nombre}"></td>
+            <td th:text="${p.especie}"></td>
+            <td th:text="${p.raza}"></td>
+            <td th:text="${p.edad}"></td>
+            <td th:text="${p.nombreDueno}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+      <div class="actions">
+        <a th:href="@{/pacientes/registro}" class="button"
+          >Registrar otro paciente</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

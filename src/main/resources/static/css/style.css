@@ -1,0 +1,9 @@
+body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+.container { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+form { display: flex; flex-direction: column; }
+label { margin-top: 10px; font-weight: bold; }
+input { padding: 8px; margin-top: 5px; }
+button { margin-top: 20px; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background-color: #f2f2f2; }
