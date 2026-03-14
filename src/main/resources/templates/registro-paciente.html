@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registrar Paciente</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Registrar Nuevo Paciente</h1>
+      <form
+        th:action="@{/pacientes/guardar}"
+        th:object="${paciente}"
+        method="post"
+      >
+        <label>Nombre Mascota:</label>
+        <input type="text" th:field="*{nombre}" required />
+
+        <label>Especie:</label>
+        <input
+          type="text"
+          th:field="*{especie}"
+          placeholder="Ej: Perro, Gato"
+          required
+        />
+
+        <label>Raza:</label>
+        <input type="text" th:field="*{raza}" required />
+
+        <label>Edad:</label>
+        <input type="number" th:field="*{edad}" required />
+
+        <label>Nombre del Dueño:</label>
+        <input type="text" th:field="*{nombreDueno}" required />
+
+        <button type="submit">Guardar Paciente</button>
+      </form>
+      <br />
+      <a th:href="@{/pacientes/lista}">Ver lista de pacientes</a>
+    </div>
+  </body>
+</html>

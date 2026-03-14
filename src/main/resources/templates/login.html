@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Veterinaria</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Ingreso al Sistema Veterinaria</h2>
+
+      <div th:if="${param.error}" style="color: red">
+        Usuario o contraseña incorrectos.
+      </div>
+
+      <form th:action="@{/login}" method="post">
+        <div>
+          <label>Usuario:</label>
+          <input type="text" name="username" required />
+        </div>
+        <div>
+          <label>Contraseña:</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p>Prueba con: admin / admin123</p>
+    </div>
+  </body>
+</html>
