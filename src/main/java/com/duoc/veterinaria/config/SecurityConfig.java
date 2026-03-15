@@ -34,10 +34,15 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         // Pagina de login personalizada
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         // Redirige al usuario aquí tras iniciar esión exitosamente
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/pacientes/lista", true)
                         // permite acceder al login sin estar autenticado
-                        .permitAll());
+                        .permitAll())
+                .logout((logout) -> logout
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                );        
         return http.build();
     }
 
@@ -71,10 +76,10 @@ public class SecurityConfig {
 
         // Retorna el gestor de usuarios en memoria con los 3 usuarios definidos
         return new InMemoryUserDetailsManager(user1, user2, user3);
- 
         }
         @Bean
         public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
+
