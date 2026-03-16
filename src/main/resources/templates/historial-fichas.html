@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Historial Clínico</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li><a th:href="@{/citas/lista}">Citas</a></li>
+        <li><a th:href="@{/fichas/historial}">Fichas</a></li>
+        <li class="logout-btn">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1>Historial Clínico de Pacientes</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Paciente</th>
+            <th>Diagnóstico</th>
+            <th>Tratamiento</th>
+            <th>Receta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="f : ${listaFichas}">
+            <td th:text="${f.nombrePaciente}" style="font-weight: bold"></td>
+            <td th:text="${f.diagnostico}"></td>
+            <td th:text="${f.tratamiento}"></td>
+            <td th:text="${f.receta}"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div
+        th:if="${#lists.isEmpty(listaFichas)}"
+        style="text-align: center; margin-top: 20px"
+      >
+        <p>No hay fichas registradas aún.</p>
+      </div>
+
+      <br />
+      <a th:href="@{/fichas/nueva}" class="button">Registrar Nueva Atención</a>
+    </div>
+  </body>
+</html>

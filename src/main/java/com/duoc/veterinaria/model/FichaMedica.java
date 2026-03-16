@@ -1,37 +1,20 @@
 package com.duoc.veterinaria.model;
 
-import java.time.LocalDateTime;
-
 public class FichaMedica {
 
-    private Long id;
-    private String nombrePaciente; // Para vincularla con el paciente
+    private String nombrePaciente;
     private String diagnostico;
     private String tratamiento;
-    private String medicamentos;
-    private String notasMedicas;
-    private LocalDateTime fechaRegistro;
-
+    private String receta;
+   
     public FichaMedica() {
-        this.fechaRegistro = LocalDateTime.now(); // Se marca la fecha automaticamente
     }
 
-    public FichaMedica(String diagnostico, LocalDateTime fechaRegistro, Long id, String medicamentos, String nombrePaciente, String notasMedicas, String tratamiento) {
-        this.diagnostico = diagnostico;
-        this.fechaRegistro = fechaRegistro;
-        this.id = id;
-        this.medicamentos = medicamentos;
+    public FichaMedica(String nombrePaciente, String diagnostico, String tratamiento, String receta) {
         this.nombrePaciente = nombrePaciente;
-        this.notasMedicas = notasMedicas;
+        this.diagnostico = diagnostico;
         this.tratamiento = tratamiento;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.receta = receta;
     }
 
     public String getNombrePaciente() {
@@ -58,41 +41,22 @@ public class FichaMedica {
         this.tratamiento = tratamiento;
     }
 
-    public String getMedicamentos() {
-        return medicamentos;
+    public String getReceta() {
+        return receta;
     }
 
-    public void setMedicamentos(String medicamentos) {
-        this.medicamentos = medicamentos;
-    }
-
-    public String getNotasMedicas() {
-        return notasMedicas;
-    }
-
-    public void setNotasMedicas(String notasMedicas) {
-        this.notasMedicas = notasMedicas;
-    }
-
-    public LocalDateTime getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDateTime fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public void setReceta(String receta) {
+        this.receta = receta;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("FichaMedica{");
-        sb.append("id=").append(id);
-        sb.append(", nombrePaciente=").append(nombrePaciente);
+        sb.append("nombrePaciente=").append(nombrePaciente);
         sb.append(", diagnostico=").append(diagnostico);
         sb.append(", tratamiento=").append(tratamiento);
-        sb.append(", medicamentos=").append(medicamentos);
-        sb.append(", notasMedicas=").append(notasMedicas);
-        sb.append(", fechaRegistro=").append(fechaRegistro);
+        sb.append(", receta=").append(receta);
         sb.append('}');
         return sb.toString();
     }

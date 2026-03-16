@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class Cita {
 
-    private String nombrePaciente;
+    private String nombrePaciente; // vincular al paciente
     private LocalDate fecha;
     private LocalTime hora;
     private String motivo;

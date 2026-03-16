@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nueva Ficha Médica</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li><a th:href="@{/citas/lista}">Citas</a></li>
+        <li><a th:href="@{/fichas/historial}">Fichas</a></li>
+        <li class="logout-btn">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1>Registrar Atención Médica</h1>
+      <form th:action="@{/fichas/guardar}" th:object="${ficha}" method="post">
+        <label>Paciente:</label>
+        <input type="text" th:field="*{nombrePaciente}" required />
+
+        <label>Diagnóstico:</label>
+        <textarea th:field="*{diagnostico}" rows="3" required></textarea>
+
+        <label>Tratamiento:</label>
+        <textarea th:field="*{tratamiento}" rows="3" required></textarea>
+
+        <label>Receta Médica:</label>
+        <input type="text" th:field="*{receta}" required />
+
+        <button type="submit">Guardar Ficha</button>
+      </form>
+    </div>
+  </body>
+</html>
