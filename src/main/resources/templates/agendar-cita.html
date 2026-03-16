@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+        <li class="logout-btn">
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1>Agendar Nueva Cita</h1>
+      <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+        <label>Nombre del Paciente:</label>
+        <input type="text" th:field="*{nombrePaciente}" required />
+
+        <label>Fecha:</label>
+        <input type="date" th:field="*{fecha}" required />
+
+        <label>Hora:</label>
+        <input type="time" th:field="*{hora}" required />
+
+        <label>Veterinario Asignado:</label>
+        <input type="text" th:field="*{veterinarioAsignado}" required />
+
+        <label>Motivo de Consulta:</label>
+        <textarea th:field="*{motivo}" rows="3" required></textarea>
+
+        <button type="submit">Agendar Cita</button>
+      </form>
+    </div>
+  </body>
+</html>

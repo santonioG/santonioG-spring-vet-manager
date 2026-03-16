@@ -2,32 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Registrar Paciente</title>
+    <title>Registro de Pacientes</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
     <nav>
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Lista de Pacientes</a></li>
-        <li><a th:href="@{/pacientes/registro}">Nuevo Paciente</a></li>
+        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
         <li class="logout-btn">
-          <form th:action="@{/logout}" method="post" style="display: inline">
-            <button
-              type="submit"
-              style="
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-                font-weight: bold;
-              "
-            >
-              Cerrar Sesión
-            </button>
+          <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
+
     <div class="container">
       <h1>Registrar Nuevo Paciente</h1>
       <form
@@ -42,7 +32,7 @@
         <input
           type="text"
           th:field="*{especie}"
-          placeholder="Ej: Perro, Gato"
+          placeholder="Ej: Perro"
           required
         />
 
@@ -57,8 +47,6 @@
 
         <button type="submit">Guardar Paciente</button>
       </form>
-      <br />
-      <a th:href="@{/pacientes/lista}">Ver lista de pacientes</a>
     </div>
   </body>
 </html>

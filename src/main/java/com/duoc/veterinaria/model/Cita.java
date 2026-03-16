@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 public class Cita {
 
+    private String nombrePaciente;
     private LocalDate fecha;
     private LocalTime hora;
     private String motivo;
@@ -13,12 +14,15 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(LocalDate fecha, LocalTime hora, String motivo, String veterinarioAsignado) {
+    public Cita(String nombrePaciente, LocalDate fecha, LocalTime hora, String motivo, String veterinarioAsignado) {
+        this.nombrePaciente = nombrePaciente;
         this.fecha = fecha;
         this.hora = hora;
         this.motivo = motivo;
         this.veterinarioAsignado = veterinarioAsignado;
     }
+
+
 
     public LocalDate getFecha() {
         return fecha;
@@ -52,11 +56,20 @@ public class Cita {
         this.veterinarioAsignado = veterinarioAsignado;
     }
 
+    public String getNombrePaciente() {
+        return nombrePaciente;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cita{");
-        sb.append("fecha=").append(fecha);
+        sb.append("nombrePaciente=").append(nombrePaciente);
+        sb.append(", fecha=").append(fecha);
         sb.append(", hora=").append(hora);
         sb.append(", motivo=").append(motivo);
         sb.append(", veterinarioAsignado=").append(veterinarioAsignado);
