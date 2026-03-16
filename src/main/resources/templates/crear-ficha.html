@@ -2,38 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Nueva Ficha Médica</title>
+    <title>Nueva Ficha</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <nav>
+    <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
-        <li><a th:href="@{/citas/lista}">Citas</a></li>
-        <li><a th:href="@{/fichas/historial}">Fichas</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/pacientes/lista}">Pacientes</a>
+        </li>
+
+        <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/fichas/historial}">Historial Clínico</a>
+        </li>
+
         <li class="logout-btn">
-          <form th:action="@{/logout}" method="post">
+          <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
-
     <div class="container">
       <h1>Registrar Atención Médica</h1>
       <form th:action="@{/fichas/guardar}" th:object="${ficha}" method="post">
         <label>Paciente:</label>
         <input type="text" th:field="*{nombrePaciente}" required />
-
         <label>Diagnóstico:</label>
         <textarea th:field="*{diagnostico}" rows="3" required></textarea>
-
         <label>Tratamiento:</label>
         <textarea th:field="*{tratamiento}" rows="3" required></textarea>
-
         <label>Receta Médica:</label>
         <input type="text" th:field="*{receta}" required />
-
         <button type="submit">Guardar Ficha</button>
       </form>
     </div>

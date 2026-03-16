@@ -6,21 +6,27 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <nav>
+    <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
-        <li><a th:href="@{/citas/lista}">Citas</a></li>
-        <li><a th:href="@{/fichas/historial}">Fichas</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/pacientes/lista}">Pacientes</a>
+        </li>
+
+        <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/fichas/historial}">Historial Clínico</a>
+        </li>
+
         <li class="logout-btn">
-          <form th:action="@{/logout}" method="post">
+          <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
-
-    <div class="container">
-      <h1>Historial Clínico de Pacientes</h1>
+    <div class="container" style="max-width: 900px">
+      <h1>Historial Clínico</h1>
       <table>
         <thead>
           <tr>
@@ -39,16 +45,8 @@
           </tr>
         </tbody>
       </table>
-
-      <div
-        th:if="${#lists.isEmpty(listaFichas)}"
-        style="text-align: center; margin-top: 20px"
-      >
-        <p>No hay fichas registradas aún.</p>
-      </div>
-
       <br />
-      <a th:href="@{/fichas/nueva}" class="button">Registrar Nueva Atención</a>
+      <a th:href="@{/fichas/nueva}" class="button">Registrar Atención</a>
     </div>
   </body>
 </html>

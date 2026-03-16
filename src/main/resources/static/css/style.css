@@ -31,3 +31,28 @@ nav a:hover {
 .logout-btn {
     margin-left: auto; /* Empuja el botón de salir a la derecha */
 }
+
+/* Hacer que las páginas de tablas sean más anchas que los formularios */
+.container:has(table) {
+    max-width: 900px;
+}
+
+/* Estilo para los botones tipo enlace */
+.button {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+
+/* Separación para el formulario de login */
+form div {
+    margin-bottom: 15px;
+}

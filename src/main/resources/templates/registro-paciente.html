@@ -2,22 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Registro de Pacientes</title>
+    <title>Registro de Paciente</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <nav>
+    <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/pacientes/lista}">Pacientes</a>
+        </li>
+
         <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/fichas/historial}">Historial Clínico</a>
+        </li>
+
         <li class="logout-btn">
-          <form th:action="@{/logout}" method="post">
+          <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
-
     <div class="container">
       <h1>Registrar Nuevo Paciente</h1>
       <form
@@ -27,7 +34,6 @@
       >
         <label>Nombre Mascota:</label>
         <input type="text" th:field="*{nombre}" required />
-
         <label>Especie:</label>
         <input
           type="text"
@@ -35,16 +41,12 @@
           placeholder="Ej: Perro"
           required
         />
-
         <label>Raza:</label>
         <input type="text" th:field="*{raza}" required />
-
         <label>Edad:</label>
         <input type="number" th:field="*{edad}" required />
-
         <label>Nombre del Dueño:</label>
         <input type="text" th:field="*{nombreDueno}" required />
-
         <button type="submit">Guardar Paciente</button>
       </form>
     </div>

@@ -10,4 +10,3 @@ public class VeterinariaSeguraApplication {
 		SpringApplication.run(VeterinariaSeguraApplication.class, args);
 	}
 }
-

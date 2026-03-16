@@ -23,60 +23,57 @@ public class SecurityConfig {
      * qué rutas son publicas, cual es la pag de login, ect.
      */
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        // Rutas públicas: cualquier usuario puede acceder sin autenticarse
-                        .requestMatchers("/", "/login", "/css/**").permitAll()
-                        // Cualquier otra ruta requiere que el usuario esté autenticado
-                        .anyRequest().authenticated())
-                .formLogin((form) -> form
-                        // Pagina de login personalizada
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        // Redirige al usuario aquí tras iniciar esión exitosamente
-                        .defaultSuccessUrl("/pacientes/lista", true)
-                        // permite acceder al login sin estar autenticado
-                        .permitAll())
-                .logout((logout) -> logout
-                        .logoutSuccessUrl("/login?logout")
-                        .permitAll()
-                );        
-        return http.build();
-    }
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests((requests) -> requests
+            // 1. Recursos totalmente públicos
+            .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+            
+            // 2. Reglas de Roles (Spring añade ROLE_ automáticamente)
+            .requestMatchers("/pacientes/**", "/fichas/**").hasAnyRole("ADMIN", "VETERINARIO")
+            .requestMatchers("/citas/**").hasAnyRole("ADMIN", "VETERINARIO", "DUENO")
+            
+            // 3. El resto requiere estar logueado
+            .anyRequest().authenticated()
+        )
+        .formLogin((form) -> form
+            .loginPage("/login")
+            .loginProcessingUrl("/login")
+            .defaultSuccessUrl("/home", true) // Forzamos redirección a nuestra lógica
+            .failureUrl("/login?error=true")
+            .permitAll()
+        )
+        .logout((logout) -> logout
+            .logoutSuccessUrl("/login?logout")
+            .permitAll()
+        );
+        
+    return http.build();
+}
 
-    /**
-     * Define los usuarios de la aplicación almacenados en memoria.
-     * En producción esto debería venir de una base de datos,
-     * pero para este proyecto usamos InMemoryUserDetailsManager.
-     * Recibe el PasswordEncoder como parámetro para que Spring lo inyecte
-     * automáticamente (evita llamarlo directamente y mejora el diseño).
-     */
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        // Usuario con rol ADMIN: acceso total al sistema
-        UserDetails user1 = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("admin123")) // Contraseña con BCrypt
-                .roles("ADMIN")
-                .build();
-        // Usuario con rol VETERINARIO: acceso a funciones del veterinario
-        UserDetails user2 = User.builder()
-                .username("vet")
-                .password(passwordEncoder.encode("vet123"))
-                .roles("VETERINARIO")
-                .build();
-        // Usuario con rol USER: acceso básico (dueño de mascota)
-        UserDetails user3 = User.builder()
-                .username("dueno")
-                .password(passwordEncoder.encode("dueno123"))
-                .roles("USER")
-                .build();
+@Bean
+public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+    UserDetails admin = User.builder()
+            .username("admin")
+            .password(passwordEncoder.encode("admin123"))
+            .roles("ADMIN")
+            .build();
 
-        // Retorna el gestor de usuarios en memoria con los 3 usuarios definidos
-        return new InMemoryUserDetailsManager(user1, user2, user3);
-        }
+    UserDetails vet = User.builder()
+            .username("vet")
+            .password(passwordEncoder.encode("vet123"))
+            .roles("VETERINARIO")
+            .build();
+
+    UserDetails dueno = User.builder()
+            .username("dueno")
+            .password(passwordEncoder.encode("dueno123"))
+            .roles("DUENO") 
+            .build();
+
+    return new InMemoryUserDetailsManager(admin, vet, dueno);
+}
         @Bean
         public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

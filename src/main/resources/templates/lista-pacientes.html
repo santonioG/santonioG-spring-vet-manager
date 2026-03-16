@@ -6,31 +6,27 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <nav>
+    <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Lista de Pacientes</a></li>
-        <li><a th:href="@{/pacientes/registro}">Nuevo Paciente</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/pacientes/lista}">Pacientes</a>
+        </li>
+
+        <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/fichas/historial}">Historial Clínico</a>
+        </li>
+
         <li class="logout-btn">
           <form th:action="@{/logout}" method="post" style="display: inline">
-            <button
-              type="submit"
-              style="
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-                font-weight: bold;
-              "
-            >
-              Cerrar Sesión
-            </button>
+            <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
-    <div class="container">
+    <div class="container" style="max-width: 900px">
       <h1>Pacientes Registrados</h1>
-
       <table>
         <thead>
           <tr>
@@ -51,13 +47,10 @@
           </tr>
         </tbody>
       </table>
-
       <br />
-      <div class="actions">
-        <a th:href="@{/pacientes/registro}" class="button"
-          >Registrar otro paciente</a
-        >
-      </div>
+      <a th:href="@{/pacientes/registro}" class="button"
+        >Registrar Nuevo Paciente</a
+      >
     </div>
   </body>
 </html>

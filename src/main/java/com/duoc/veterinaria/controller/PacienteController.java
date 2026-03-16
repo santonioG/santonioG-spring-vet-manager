@@ -16,18 +16,6 @@ public class PacienteController {
     @Autowired
     private IPacienteService pacienteService;
 
-    // Ruta para el login
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    // Ruta raíz que redirige al login
-    @GetMapping("/")
-    public String index() {
-        return "redirect:/login";
-    }
-
     @GetMapping("/pacientes/registro")
     public String mostrarFormulario(Model model) {
         model.addAttribute("paciente", new Paciente());

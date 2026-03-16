@@ -6,19 +6,26 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <nav>
+    <nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
       <ul>
-        <li><a th:href="@{/pacientes/lista}">Pacientes</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/pacientes/lista}">Pacientes</a>
+        </li>
+
         <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
+
+        <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
+          <a th:href="@{/fichas/historial}">Historial Clínico</a>
+        </li>
+
         <li class="logout-btn">
-          <form th:action="@{/logout}" method="post">
+          <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
           </form>
         </li>
       </ul>
     </nav>
-
-    <div class="container">
+    <div class="container" style="max-width: 900px">
       <h1>Calendario de Citas</h1>
       <table>
         <thead>
@@ -41,7 +48,7 @@
         </tbody>
       </table>
       <br />
-      <a th:href="@{/citas/agendar}" class="button">Agendar otra cita</a>
+      <a th:href="@{/citas/agendar}" class="button">Agendar Nueva Cita</a>
     </div>
   </body>
 </html>

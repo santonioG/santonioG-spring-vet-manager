@@ -8,7 +8,6 @@ public class Paciente {
     private int edad;
     private String nombreDueno;
 
-    // Constructor vacío (necesario para Spring/Thymeleaf)
     public Paciente() {
     }
 
