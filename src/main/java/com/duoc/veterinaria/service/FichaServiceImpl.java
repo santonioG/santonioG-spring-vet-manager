@@ -1,25 +1,26 @@
 package com.duoc.veterinaria.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duoc.veterinaria.model.FichaMedica;
+import com.duoc.veterinaria.repository.FichaRepository;
 
 @Service
-public class FichaServiceImpl implements IFichaService{
+public class FichaServiceImpl implements IFichaService {
 
-    private final List<FichaMedica> listaFichas = new ArrayList<>();
+    @Autowired
+    private FichaRepository fichaRepository;
 
     @Override
     public void guardarFicha(FichaMedica ficha) {
-        listaFichas.add(ficha);
+        fichaRepository.save(ficha);
     }
 
     @Override
     public List<FichaMedica> obtenerTodas() {
-        return listaFichas;
+        return (List<FichaMedica>) fichaRepository.findAll();
     }
-
 }
