@@ -3,7 +3,16 @@ package com.duoc.veterinaria.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Cita {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nombrePaciente; // vincular al paciente
     private LocalDate fecha;
@@ -14,16 +23,16 @@ public class Cita {
     public Cita() {
     }
 
-    public Cita(String nombrePaciente, LocalDate fecha, LocalTime hora, String motivo, String veterinarioAsignado) {
-        this.nombrePaciente = nombrePaciente;
+    public Cita(LocalDate fecha, LocalTime hora, Long id, String motivo, String nombrePaciente, String veterinarioAsignado) {
         this.fecha = fecha;
         this.hora = hora;
+        this.id = id;
         this.motivo = motivo;
+        this.nombrePaciente = nombrePaciente;
         this.veterinarioAsignado = veterinarioAsignado;
     }
 
-
-
+    
     public LocalDate getFecha() {
         return fecha;
     }
@@ -64,11 +73,20 @@ public class Cita {
         this.nombrePaciente = nombrePaciente;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cita{");
-        sb.append("nombrePaciente=").append(nombrePaciente);
+        sb.append("id=").append(id);
+        sb.append(", nombrePaciente=").append(nombrePaciente);
         sb.append(", fecha=").append(fecha);
         sb.append(", hora=").append(hora);
         sb.append(", motivo=").append(motivo);

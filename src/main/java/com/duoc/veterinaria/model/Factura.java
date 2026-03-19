@@ -4,24 +4,32 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Factura {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nombrePaciente;
     private List<String> servicios;
     private BigDecimal montoTotal;
     private LocalDateTime fechaEmision;
-
-    // Constructor completo — cuando tú provees la fecha
-    public Factura(String nombrePaciente, List<String> servicios, BigDecimal montoTotal, LocalDateTime fechaEmision) {
-    this.nombrePaciente = nombrePaciente;
-    this.servicios = List.copyOf(servicios); // copia defensiva también al guardar
-    this.montoTotal = montoTotal;
-    this.fechaEmision = fechaEmision;
+    
+    public Factura() {
     }
 
-    // Constructor conveniente — fecha se genera automáticamente
-    public Factura(String nombrePaciente, List<String> servicios, BigDecimal montoTotal) {
-    this(nombrePaciente, servicios, montoTotal, LocalDateTime.now()); // delega al de arriba
+
+    public Factura(LocalDateTime fechaEmision, Long id, BigDecimal montoTotal, String nombrePaciente, List<String> servicios) {
+        this.fechaEmision = fechaEmision;
+        this.id = id;
+        this.montoTotal = montoTotal;
+        this.nombrePaciente = nombrePaciente;
+        this.servicios = List.copyOf(servicios); // copia defensiva también al guardar
     }
 
     public String getNombrePaciente() {
@@ -56,16 +64,27 @@ public class Factura {
         this.fechaEmision = fechaEmision;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Factura{");
-        sb.append("nombrePaciente=").append(nombrePaciente);
+        sb.append("id=").append(id);
+        sb.append(", nombrePaciente=").append(nombrePaciente);
         sb.append(", servicios=").append(servicios);
         sb.append(", montoTotal=").append(montoTotal);
         sb.append(", fechaEmision=").append(fechaEmision);
         sb.append('}');
         return sb.toString();
     }
+
+
 
 }

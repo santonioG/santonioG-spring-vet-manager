@@ -1,7 +1,16 @@
 package com.duoc.veterinaria.model;
 
-public class Paciente {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Paciente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private String nombre;
     private String especie;
     private String raza;
@@ -11,9 +20,10 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(int edad, String especie, String nombre, String nombreDueno, String raza) {
+    public Paciente(int edad, String especie, Long id, String nombre, String nombreDueno, String raza) {
         this.edad = edad;
         this.especie = especie;
+        this.id = id;
         this.nombre = nombre;
         this.nombreDueno = nombreDueno;
         this.raza = raza;
@@ -61,12 +71,21 @@ public class Paciente {
         this.nombreDueno = nombreDueno;
     }
 
-    //toString para debug
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+     //toString para debug
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Paciente{");
-        sb.append("nombre=").append(nombre);
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
         sb.append(", especie=").append(especie);
         sb.append(", raza=").append(raza);
         sb.append(", edad=").append(edad);
@@ -75,6 +94,5 @@ public class Paciente {
         return sb.toString();
     }
     
-
 
 }

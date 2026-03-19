@@ -1,6 +1,15 @@
 package com.duoc.veterinaria.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class FichaMedica {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nombrePaciente;
     private String diagnostico;
@@ -10,12 +19,14 @@ public class FichaMedica {
     public FichaMedica() {
     }
 
-    public FichaMedica(String nombrePaciente, String diagnostico, String tratamiento, String receta) {
-        this.nombrePaciente = nombrePaciente;
+    public FichaMedica(String diagnostico, Long id, String nombrePaciente, String receta, String tratamiento) {
         this.diagnostico = diagnostico;
-        this.tratamiento = tratamiento;
+        this.id = id;
+        this.nombrePaciente = nombrePaciente;
         this.receta = receta;
+        this.tratamiento = tratamiento;
     }
+
 
     public String getNombrePaciente() {
         return nombrePaciente;
@@ -49,16 +60,27 @@ public class FichaMedica {
         this.receta = receta;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("FichaMedica{");
-        sb.append("nombrePaciente=").append(nombrePaciente);
+        sb.append("id=").append(id);
+        sb.append(", nombrePaciente=").append(nombrePaciente);
         sb.append(", diagnostico=").append(diagnostico);
         sb.append(", tratamiento=").append(tratamiento);
         sb.append(", receta=").append(receta);
         sb.append('}');
         return sb.toString();
     }
+
+    
 
 }
