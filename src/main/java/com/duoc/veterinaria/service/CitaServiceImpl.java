@@ -23,4 +23,15 @@ public class CitaServiceImpl implements ICitaService {
     public List<Cita> obtenerTodas() {
         return (List<Cita>) citaRepository.findAll();
     }
+
+    @Override
+    public Cita buscarPorId(Long id) {
+    return citaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        citaRepository.deleteById(id);
+    }
+
 }

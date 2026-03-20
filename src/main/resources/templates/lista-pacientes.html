@@ -35,6 +35,7 @@
             <th>Raza</th>
             <th>Edad</th>
             <th>Dueño</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +45,23 @@
             <td th:text="${p.raza}"></td>
             <td th:text="${p.edad}"></td>
             <td th:text="${p.nombreDueno}"></td>
+            <td>
+              <a th:href="@{/pacientes/editar/{id}(id=${p.id})}" class="button"
+                >Editar</a
+              >
+              <form
+                th:action="@{/pacientes/eliminar/{id}(id=${p.id})}"
+                method="post"
+                style="display: inline"
+                onsubmit="
+                  return confirm('¿Seguro que deseas eliminar este paciente?');
+                "
+              >
+                <button type="submit" style="background: #dc3545">
+                  Eliminar
+                </button>
+              </form>
+            </td>
           </tr>
         </tbody>
       </table>

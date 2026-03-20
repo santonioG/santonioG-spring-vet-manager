@@ -7,4 +7,6 @@ import com.duoc.veterinaria.model.Cita;
 public interface ICitaService {
     void agendarCita(Cita cita);
     List<Cita> obtenerTodas();
+    Cita buscarPorId(Long id);
+    void eliminar(Long id);  
 }

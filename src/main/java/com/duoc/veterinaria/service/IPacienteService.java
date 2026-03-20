@@ -9,5 +9,7 @@ public interface IPacienteService {
     void guardarPaciente(Paciente paciente);
     List<Paciente> obtenerTodos();
     Paciente buscarPorNombre(String nombre);
+    Paciente buscarPorId(Long id);  
+    void eliminar(Long id);              
 
 }

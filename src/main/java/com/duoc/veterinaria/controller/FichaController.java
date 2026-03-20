@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,6 +35,12 @@ public class FichaController {
     public String historial(Model model) {
         model.addAttribute("listaFichas", fichaService.obtenerTodas());
         return "historial-fichas";
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarFicha(@PathVariable Long id) {
+        fichaService.eliminar(id);
+        return "redirect:/fichas/historial";
     }
 
 }

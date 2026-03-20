@@ -11,13 +11,10 @@
         <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
           <a th:href="@{/pacientes/lista}">Pacientes</a>
         </li>
-
         <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
-
         <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
           <a th:href="@{/fichas/historial}">Historial Clínico</a>
         </li>
-
         <li class="logout-btn">
           <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
@@ -25,20 +22,42 @@
         </li>
       </ul>
     </nav>
+
     <div class="container">
-      <h1>Agendar Nueva Cita</h1>
-      <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+      <!-- Título dinámico -->
+      <h1
+        th:text="${cita.id != null} ? 'Editar Cita' : 'Agendar Nueva Cita'"
+      ></h1>
+
+      <!-- Acción dinámica -->
+      <form
+        th:action="${cita.id != null} ? @{/citas/actualizar} : @{/citas/guardar}"
+        th:object="${cita}"
+        method="post"
+      >
+        <!--  ID oculto para el UPDATE -->
+        <input type="hidden" th:field="*{id}" />
+
         <label>Nombre del Paciente:</label>
         <input type="text" th:field="*{nombrePaciente}" required />
+
         <label>Fecha:</label>
         <input type="date" th:field="*{fecha}" required />
+
         <label>Hora:</label>
         <input type="time" th:field="*{hora}" required />
+
         <label>Veterinario Asignado:</label>
         <input type="text" th:field="*{veterinarioAsignado}" required />
+
         <label>Motivo de Consulta:</label>
         <textarea th:field="*{motivo}" rows="3" required></textarea>
-        <button type="submit">Agendar Cita</button>
+
+        <!-- Botón dinámico -->
+        <button
+          type="submit"
+          th:text="${cita.id != null} ? 'Actualizar Cita' : 'Agendar Cita'"
+        ></button>
       </form>
     </div>
   </body>

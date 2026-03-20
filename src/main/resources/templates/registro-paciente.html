@@ -11,13 +11,10 @@
         <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
           <a th:href="@{/pacientes/lista}">Pacientes</a>
         </li>
-
         <li><a th:href="@{/citas/lista}">Citas Médicas</a></li>
-
         <li sec:authorize="hasAnyRole('ADMIN', 'VETERINARIO')">
           <a th:href="@{/fichas/historial}">Historial Clínico</a>
         </li>
-
         <li class="logout-btn">
           <form th:action="@{/logout}" method="post" style="display: inline">
             <button type="submit">Cerrar Sesión</button>
@@ -25,15 +22,25 @@
         </li>
       </ul>
     </nav>
+
     <div class="container">
-      <h1>Registrar Nuevo Paciente</h1>
+      <!-- El título cambia según si estamos editando o creando -->
+      <h1
+        th:text="${paciente.id != null} ? 'Editar Paciente' : 'Registrar Nuevo Paciente'"
+      ></h1>
+
+      <!-- La acción cambia según si el paciente ya tiene ID -->
       <form
-        th:action="@{/pacientes/guardar}"
+        th:action="${paciente.id != null} ? @{/pacientes/actualizar} : @{/pacientes/guardar}"
         th:object="${paciente}"
         method="post"
       >
+        <!-- Campo oculto que guarda el ID para que el UPDATE funcione -->
+        <input type="hidden" th:field="*{id}" />
+
         <label>Nombre Mascota:</label>
         <input type="text" th:field="*{nombre}" required />
+
         <label>Especie:</label>
         <input
           type="text"
@@ -41,13 +48,21 @@
           placeholder="Ej: Perro"
           required
         />
+
         <label>Raza:</label>
         <input type="text" th:field="*{raza}" required />
+
         <label>Edad:</label>
         <input type="number" th:field="*{edad}" required />
+
         <label>Nombre del Dueño:</label>
         <input type="text" th:field="*{nombreDueno}" required />
-        <button type="submit">Guardar Paciente</button>
+
+        <!-- El botón también cambia su texto -->
+        <button
+          type="submit"
+          th:text="${paciente.id != null} ? 'Actualizar Paciente' : 'Guardar Paciente'"
+        ></button>
       </form>
     </div>
   </body>

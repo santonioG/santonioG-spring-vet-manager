@@ -23,4 +23,10 @@ public class FichaServiceImpl implements IFichaService {
     public List<FichaMedica> obtenerTodas() {
         return (List<FichaMedica>) fichaRepository.findAll();
     }
+
+    @Override
+    public void eliminar(Long id) {
+    fichaRepository.deleteById(id);
+    }
+
 }

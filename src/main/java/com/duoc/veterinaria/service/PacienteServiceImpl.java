@@ -9,7 +9,7 @@ import com.duoc.veterinaria.model.Paciente;
 import com.duoc.veterinaria.repository.PacienteRepository;
 
 @Service
-public class PacienteServiceImpl implements IPacienteService {
+    public class PacienteServiceImpl implements IPacienteService {
 
     @Autowired
     private PacienteRepository pacienteRepository;
@@ -27,5 +27,15 @@ public class PacienteServiceImpl implements IPacienteService {
     @Override
     public Paciente buscarPorNombre(String nombre) {
         return pacienteRepository.findByNombre(nombre);
+    }
+
+    @Override
+    public Paciente buscarPorId(Long id) {
+        return pacienteRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        pacienteRepository.deleteById(id);
     }
 }

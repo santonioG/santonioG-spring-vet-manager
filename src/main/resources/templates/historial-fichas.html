@@ -34,6 +34,7 @@
             <th>Diagnóstico</th>
             <th>Tratamiento</th>
             <th>Receta</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +43,20 @@
             <td th:text="${f.diagnostico}"></td>
             <td th:text="${f.tratamiento}"></td>
             <td th:text="${f.receta}"></td>
+            <td>
+              <form
+                th:action="@{/fichas/eliminar/{id}(id=${f.id})}"
+                method="post"
+                style="display: inline"
+                onsubmit="
+                  return confirm('¿Seguro que deseas eliminar esta ficha?');
+                "
+              >
+                <button type="submit" style="background: #dc3545">
+                  Eliminar
+                </button>
+              </form>
+            </td>
           </tr>
         </tbody>
       </table>
