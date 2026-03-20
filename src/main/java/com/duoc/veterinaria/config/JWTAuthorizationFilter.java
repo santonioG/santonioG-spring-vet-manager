@@ -3,6 +3,7 @@ package com.duoc.veterinaria.config;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.crypto.SecretKey;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-// Importación estática constantes
 import static com.duoc.veterinaria.config.SecurityConstants.HEADER_AUTHORIZACION_KEY;
 import static com.duoc.veterinaria.config.SecurityConstants.SUPER_SECRET_KEY;
 import static com.duoc.veterinaria.config.SecurityConstants.TOKEN_BEARER_PREFIX;
@@ -74,10 +74,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                 } else {
                     SecurityContextHolder.clearContext();
                 }
-            } else {
-                SecurityContextHolder.clearContext();
             }
-            // Continuar con la petición
+            
             filterChain.doFilter(request, response);
 
         } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {

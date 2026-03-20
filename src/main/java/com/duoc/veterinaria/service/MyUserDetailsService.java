@@ -24,7 +24,18 @@ public class MyUserDetailsService implements UserDetailsService{
             throw new UsernameNotFoundException("Usuario no encontrado: " + username);
         }
         System.out.println("Usuario encontrado, clave en BD: " + user.getPassword()); // Debug
+
+                    // ✅ Agrega estas líneas temporales
+    System.out.println("=== DEBUG LOGIN ===");
+    System.out.println("Usuario: " + user.getUsername());
+    System.out.println("Hash largo: " + user.getPassword().length());
+    System.out.println("Hash completo: [" + user.getPassword() + "]");
+    System.out.println("Rol: " + user.getRole());
+    System.out.println("===================");
+    
         return user;
+
     }
+
 
 }
